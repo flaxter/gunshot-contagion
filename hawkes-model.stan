@@ -37,7 +37,7 @@ transformed parameters {
   vector[n] ll;
   real lp;
   ll <- mu0 + muST * mu;
-  for(i in 2:n) {
+  for(i in 2:n) { // todo: vectorize these calculations
     for(j in 1:(i-1)) {
       ll[i] <- ll[i] + (a * lengthscaleT * exp(timeD[i,j] * lengthscaleT) * gaussian(spaceD[i,j],lengthscaleS));
     }
@@ -62,3 +62,5 @@ generated quantities {
   lengthscale_minutes <- 24*60/lengthscaleT;
   background <- (mu0 + muST *mu ) ./ ll;
 }
+
+
